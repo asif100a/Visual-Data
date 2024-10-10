@@ -6,15 +6,15 @@ const useUser = () => {
     const [user, setUser] = useState([]);
 
     useEffect(() => {
-        const getUser = async() => {
-            const {data, error} = await supabase.auth.getUser();
-            if(error) {
+        const getUser = async () => {
+            const { data, error } = await supabase.auth.getUser();
+            if (error) {
                 setUser(error.message);
-            } else{
+            } else {
                 setUser(data?.user);
             }
         };
-        
+
         getUser();
     }, []);
 

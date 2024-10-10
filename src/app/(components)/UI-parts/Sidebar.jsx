@@ -1,22 +1,8 @@
-import React from 'react'
-import useUser from '../Hooks/useUser'
+import React, { useState, useEffect } from 'react'
 import { BiLogOut } from "react-icons/bi";
 import { MdOutlineHome } from "react-icons/md";
-import { useRouter } from 'next/navigation';
 
-const Sidebar = () => {
-    const user = useUser();
-    const router = useRouter();
-
-    const handleLogout = async() => {
-
-    };
-
-    // Check logged user before showing dashboard page
-    if(!user){
-        return router.push('/login');
-    }
-
+const Sidebar = ({ user, handleLogout }) => {
     return (
         <aside className="flex flex-col w-64 h-screen px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l">
             <div className="px-3 py-1 border rounded-md overflow-clip">
@@ -74,12 +60,12 @@ const Sidebar = () => {
                     <div className="space-y-3 ">
                         <hr />
 
-                        <div className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700">
-                            <button onClick={handleLogout} className="flex">
+                        <a onClick={handleLogout} className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700" href="">
+                            <button className="flex">
                                 <span><BiLogOut className="w-5 h-5" /></span>
                                 <span className="mx-2 text-sm font-medium">Logout</span>
                             </button>
-                        </div>
+                        </a>
                     </div>
                 </nav>
             </div>

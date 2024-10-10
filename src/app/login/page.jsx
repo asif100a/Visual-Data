@@ -2,17 +2,35 @@
 import Link from 'next/link';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { supabase } from '../(lib)/helper/superbase';
 
 const LoginPage = () => {
-    const [password, setPassword] = React.useState('');
+    const router = useRouter();
 
     const {
         register,
         handleSubmit,
         watch,
         formState: { errors },
-    } = useForm()
-    const onSubmit = (data) => console.log(data)
+    } = useForm();
+
+    const onSubmit = async(data) => {
+        console.log(data);
+        const email = data?.email;
+        const password = data?.password;
+
+        const {data: authData, error} = await supabase.auth.signInWithPassword({
+            email,
+            password
+        });
+        if(error) {
+            console.log(error.message);
+        } else{
+            console.log(authData);
+            router.push('/dashboard');
+        }
+    };
 
     return (
         <section className="min-h-screen flex justify-center items-center">
