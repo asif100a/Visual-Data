@@ -1,12 +1,13 @@
 "use client"
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import useUploadImage from '../(components)/Hooks/useUploadImage';
 import Link from 'next/link';
+import { supabase } from '../(lib)/helper/superbase';
+import { useRouter } from 'next/navigation';
 
 const SignUpPage = () => {
-    const uploadImage = useUploadImage();
-    console.log(process.env.NEXT_PUBLIC_IMAGE_UPLOAD_API);
+    const router = useRouter();
+    // console.log(router);
 
     const {
         register,
@@ -16,12 +17,19 @@ const SignUpPage = () => {
 
     const onSubmit = async(data) => {
         console.log(data);
-        const photo = data.photo[0];
-        // console.log(photo);
-        const uploadedPhotoData = await uploadImage(photo);
-        console.log(uploadedPhotoData?.display_url);
+        const email = data?.email;
+        const password = data?.password;
 
-        
+        const {data: authData, error} = await supabase.auth.signUp({
+            email,
+            password,
+        });
+        if(error) {
+            console.log(error.message);
+        } else{
+            console.log(authData)
+            router.push('/dashboard');
+        }
     };
 
     return (
@@ -50,23 +58,6 @@ const SignUpPage = () => {
                         />
                     </div>
                     {errors.name && <span className="text-red-500">This field is required</span>}
-
-                    <label htmlFor="dropzone-file" className="flex items-center px-3 py-3 mx-auto mt-6 text-center bg-white border-2 border-dashed rounded-lg cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                        </svg>
-
-                        <h2 className="mx-3 text-gray-400">Profile Photo</h2>
-
-                        <input
-                            id="dropzone-file"
-                            name="photo"
-                            type="file"
-                            className="hidden"
-                            {...register("photo", { required: true })}
-                        />
-                    </label>
-                    {errors.photo && <span className="text-red-500">This field is required</span>}
 
                     <div className="relative flex items-center mt-6">
                         <span className="absolute">
@@ -99,22 +90,6 @@ const SignUpPage = () => {
                         />
                     </div>
                     {errors.password && <span className="text-red-500">This field is required</span>}
-
-                    <div className="relative flex items-center mt-4">
-                        <span className="absolute">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                            </svg>
-                        </span>
-
-                        <input
-                            type="password"
-                            name="confirmPassword"
-                            className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Confirm Password"
-                            {...register("confirmPassword", { required: true })}
-                        />
-                    </div>
-                    {errors.confirmPassword && <span className="text-red-500">This field is required</span>}
 
                     <div className="mt-6">
                         <input type="submit" value="Sign Up" className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50" />
