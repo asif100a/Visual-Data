@@ -5,7 +5,7 @@ import { supabase } from '@/app/(lib)/helper/superbase';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 
-const DashboardPage = () => {
+const Dashboard = () => {
   const user = useUser();
   const router = useRouter();
 
@@ -23,7 +23,7 @@ const DashboardPage = () => {
   }
 
   return (
-      <section>
+      <section className='flex gap-6'>
         <Sidebar
           user={user}
           handleLogout={handleLogout}
@@ -32,4 +32,4 @@ const DashboardPage = () => {
   )
 }
 
-export default DashboardPage
+export default Dashboard

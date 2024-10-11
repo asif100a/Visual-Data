@@ -7,7 +7,6 @@ import { supabase } from '../(lib)/helper/superbase';
 
 const SignUpPage = () => {
     const router = useRouter();
-    // console.log(router);
 
     const {
         register,
