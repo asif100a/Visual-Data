@@ -1,5 +1,8 @@
 "use client"
 import useUser from '@/app/(components)/Hooks/useUser';
+import BarChartComponent from '@/app/(components)/UI-parts/BarChartComponent';
+import LineChartComponent from '@/app/(components)/UI-parts/LineChartComponent';
+import PieChartComponent from '@/app/(components)/UI-parts/PieChartComponent';
 import Sidebar from '@/app/(components)/UI-parts/Sidebar';
 import { supabase } from '@/app/(lib)/helper/superbase';
 import { useRouter } from 'next/navigation';
@@ -25,15 +28,27 @@ const page = () => {
     if (!user || user === 'Auth session missing!') {
         return router.push('/login');
     }
-    
+
     return (
         <section className='flex gap-6'>
             <Sidebar
                 user={user}
                 handleLogout={handleLogout}
             />
-            <div>
-                Charts
+
+            <div className='grid grid-cols-2'>
+                {/* Bar Chart */}
+                <div className='w-[500px] h-[350px]'>
+                    <BarChartComponent />
+                </div>
+                {/* Line Chart */}
+                <div className='w-[500px] h-[350px]'>
+                    <LineChartComponent />
+                </div>
+                {/* Pie Chart */}
+                <div className='w-[600px] h-[350px]'>
+                    <PieChartComponent />
+                </div>
             </div>
         </section>
     );
