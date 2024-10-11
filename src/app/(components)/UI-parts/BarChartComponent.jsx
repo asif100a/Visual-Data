@@ -50,6 +50,9 @@ export default class BarChartComponent extends PureComponent {
   static demoUrl = 'https://codesandbox.io/p/sandbox/simple-bar-chart-72d7y5';
 
   render() {
+    const {student} = this.props;
+    console.log(student);
+
     return (
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
