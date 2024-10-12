@@ -28,7 +28,6 @@ const ChartsPage = () => {
     // state
     const [students, setStudents] = useState();
     const [selectedStudentForUpdate, setSelectedStudentForUpdate] = useState('');
-    const [selectedStudentForDelete, setSelectedStudentForDelete] = useState('');
 
     const {
         register,
@@ -61,8 +60,6 @@ const ChartsPage = () => {
 
 
     const handleSelectStudentForDelete = (studentId) => {
-        // setSelectedStudentForDelete(student);
-        // console.log(selectedStudentForDelete);
 
         // After selected student, hide the table and call the delete function
         deleteStudentRef.current.classList.add('hidden');
@@ -90,7 +87,7 @@ const ChartsPage = () => {
         const marks = formData.get("marks");
         console.table({ name, roll, marks });
 
-        const id = selectedStudent?.id;
+        const id = selectedStudentForUpdate?.id;
         const newData = { name, roll, marks };
 
         // Update the data

@@ -69,7 +69,7 @@ const UpdateStudentModal = ({
                     <div className='flex justify-between'>
                         <input
                             type="submit"
-                            value="Add"
+                            value="Update"
                             className='border rounded-md px-3 py-1 text-lg font-bold hover:cursor-pointer bg-green-600 text-white'
                         />
 
