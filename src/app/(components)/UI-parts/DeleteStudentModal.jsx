@@ -8,8 +8,6 @@ const DeleteStudentModal = ({
     handleSelectStudentForDelete
 }) => {
 
-    const from = 'delete';
-
     return (
         <div className="bg-white shadow-md rounded-2xl w-full max-w-lg p-6">
             <div className="container p-2 mx-auto sm:p-4 dark:text-gray-800">
@@ -21,7 +19,6 @@ const DeleteStudentModal = ({
                 students={students}
                 handleSelectStudentForDelete={handleSelectStudentForDelete}
                 handleCloseDeleteModal={handleCloseDeleteModal}
-                from={from}
             />
         </div>
     )

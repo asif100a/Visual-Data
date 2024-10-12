@@ -39,8 +39,8 @@ const StudentTable = ({
                                     if(from === 'update') {
                                         handleSelectStudentForUpdate(student);
                                     }
-                                    else if(from === 'delete'){
-                                        handleSelectStudentForDelete(student);
+                                    else{
+                                        handleSelectStudentForDelete(student?.id);
                                     }
                                 }}
                                 className='border-b w-fit hover:bg-slate-100 hover:cursor-pointer'

@@ -23,3 +23,9 @@ export const updateStudent = async({id, newData}) => {
     const response = await supabase.from('Students').update(newData).eq('id', id);
     return response;
 };
+
+export const deleteStudent = async({studentId}) => {
+    console.log(studentId);
+    const response = await supabase.from('Students').delete().eq('id', studentId);
+    return response;
+};

@@ -9,7 +9,7 @@ const UpdateStudentModal = ({
     tableRefForUpdate,
     formRef,
     handleSelectStudentForUpdate,
-    selectedStudent
+    selectedStudentForUpdate
 }) => {    
 
     const from = 'update';
@@ -39,7 +39,7 @@ const UpdateStudentModal = ({
                         <input
                             type="text"
                             name="name"
-                            defaultValue={selectedStudent?.name}
+                            defaultValue={selectedStudentForUpdate?.name}
                             className="w-full border px-6 py-3 rounded-md focus:outline-none"
                             required={true}
                         />
@@ -49,7 +49,7 @@ const UpdateStudentModal = ({
                         <input
                             type="number"
                             name="roll"
-                            defaultValue={selectedStudent?.roll}
+                            defaultValue={selectedStudentForUpdate?.roll}
                             className="w-full border px-6 py-3 rounded-md focus:outline-none"
                             required={true}
                         />
@@ -60,7 +60,7 @@ const UpdateStudentModal = ({
                         <input
                             type="number"
                             name="marks"
-                            defaultValue={selectedStudent?.marks}
+                            defaultValue={selectedStudentForUpdate?.marks}
                             className="w-full border px-6 py-3 rounded-md focus:outline-none"
                             required={true}
                         />

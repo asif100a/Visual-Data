@@ -9,11 +9,12 @@ import PieChartComponent from '@/app/(components)/UI-parts/PieChartComponent';
 import Sidebar from '@/app/(components)/UI-parts/Sidebar';
 import UpdateStudentModal from '@/app/(components)/UI-parts/UpdateStudentModal';
 import { supabase } from '@/app/(lib)/helper/superbase';
-import { getStudent, insertStudent, updateStudent } from '@/app/api/route';
+import { deleteStudent, getStudent, insertStudent, updateStudent } from '@/app/api/route';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
+import Swal from 'sweetalert2';
 
 const ChartsPage = () => {
     const user = useUser();
@@ -26,7 +27,8 @@ const ChartsPage = () => {
     const formRef = useRef();
     // state
     const [students, setStudents] = useState();
-    const [selectedStudent, setSelectedStudent] = useState('');
+    const [selectedStudentForUpdate, setSelectedStudentForUpdate] = useState('');
+    const [selectedStudentForDelete, setSelectedStudentForDelete] = useState('');
 
     const {
         register,
@@ -58,15 +60,18 @@ const ChartsPage = () => {
     };
 
 
-    const handleSelectStudentForDelete = (student) => {
-        console.log(student);
+    const handleSelectStudentForDelete = (studentId) => {
+        // setSelectedStudentForDelete(student);
+        // console.log(selectedStudentForDelete);
 
+        // After selected student, hide the table and call the delete function
         deleteStudentRef.current.classList.add('hidden');
+        handleDeleteStudent(studentId);
     };
 
     const handleSelectStudentForUpdate = (student) => {
         console.log(student);
-        setSelectedStudent(student);
+        setSelectedStudentForUpdate(student);
 
         // After selected student, hide the table and show the form
         tableRefForUpdate.current.classList.add('hidden');
@@ -99,8 +104,32 @@ const ChartsPage = () => {
     };
 
     // Delete student from the database
-    const handleDeleteStudent = () => {
+    const handleDeleteStudent = (studentId) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                // console.log(studentId);
 
+                // Delete the student
+                const response = await deleteStudent({ studentId });
+                console.log(response);
+                if (response?.status === 204) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                    window.location.reload();
+                }
+            }
+        });
     };
 
     /** *** Add Student Modal Action *** */
@@ -181,7 +210,7 @@ const ChartsPage = () => {
                         tableRefForUpdate={tableRefForUpdate}
                         formRef={formRef}
                         handleSelectStudentForUpdate={handleSelectStudentForUpdate}
-                        selectedStudent={selectedStudent}
+                        selectedStudentForUpdate={selectedStudentForUpdate}
                     />
                 </div>
                 <div ref={deleteStudentRef} className="absolute z-10 w-full h-full flex justify-center items-center hidden">
