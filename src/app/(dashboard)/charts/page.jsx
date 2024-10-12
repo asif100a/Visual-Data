@@ -13,19 +13,29 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 
-const page = () => {
+const ChartsPage = () => {
     const user = useUser();
     const router = useRouter();
     const studentRef = useRef();
-
-    // state
-    const [students, setStudents] = useState();
-
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
+
+    // state
+    const [students, setStudents] = useState();
+
+    // Fetched data
+    useEffect(() => {
+        const getData = async () => {
+            const data = await getStudent();
+            console.log(data);
+            setStudents(data);
+        };
+
+        getData();
+    }, []);
 
     // Add student to the database
     const handleAddStudent = async (data) => {
@@ -48,34 +58,7 @@ const page = () => {
         studentRef.current.classList.add('hidden');
     }
 
-    // Fetch the data
-    // useEffect(() => {
-    //     const fetchStudents = async () => {
-    //         const { data, error } = await supabase.from('Students').select("*", { count: 'exact' });
-    //         if (error) {
-    //             console.log(error.message);
-    //         }
-    //         else {
-    //             setStudents(data);
-    //         }
-    //     };
-
-    //     fetchStudents();
-    // }, []);
-
-    // const [data, error] = await getStudents();
-    //         console.log(data, error);
-
-    useEffect(() => {
-        const getData = async () => {
-            const data = await getStudent();
-            console.log(data);
-            setStudents(data);
-        };
-
-        getData();
-    }, [])
-
+    // Log out user
     const handleLogout = async () => {
         const { error } = await supabase.auth.signOut();
         if (error) {
@@ -85,10 +68,7 @@ const page = () => {
         }
     };
 
-    if (!user || user === 'Auth session missing!') {
-        return router.push('/login');
-    }
-
+    // If user is missing, redirect to Login page
     if (!user || user === 'Auth session missing!') {
         return router.push('/login');
     }
@@ -111,27 +91,28 @@ const page = () => {
                     />
                 </div>
 
+                {/* Bar Chart */}
                 <div className='border rounded-2xl p-6'>
                     <h1 className='text-xl font-semibold mb-3'>Bar Chart</h1>
-                    {/* Bar Chart */}
                     <div className='w-[500px] h-[350px]'>
                         <BarChartComponent students={students} />
                     </div>
                 </div>
-                <div>
+                {/* Line Chart */}
+                <div className='border rounded-2xl p-6'>
                     <h1 className='text-xl font-semibold mb-3'>Line Chart</h1>
-                    {/* Line Chart */}
                     <div className='w-[500px] h-[350px]'>
-                        <LineChartComponent />
+                        <LineChartComponent students={students} />
                     </div>
                 </div>
-                <div>
+                {/* Pie Chart */}
+                <div className='border rounded-2xl p-6'>
                     <h1 className='text-xl font-semibold mb-3'>Pie Chart</h1>
-                    {/* Pie Chart */}
                     <div className='w-[600px] h-[350px]'>
-                        <PieChartComponent />
+                        <PieChartComponent students={students} />
                     </div>
                 </div>
+                {/* Button */}
                 <div className='flex justify-center items-center'>
                     <button
                         onClick={handleViewModal}
@@ -147,4 +128,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default ChartsPage;

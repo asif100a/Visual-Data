@@ -8,7 +8,7 @@ export default class BarChartComponent extends PureComponent {
     const {students} = this.props;
     console.log(students);
 
-    const studentsArray = students?.map(student => (
+    const studentsChart = students?.map(student => (
       {
         name: student?.name,
         roll: student?.roll,
@@ -16,14 +16,14 @@ export default class BarChartComponent extends PureComponent {
         amt: 100
       }
     ));
-    console.log(studentsArray)
+    console.log(studentsChart)
 
     return (
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           width={500}
           height={300}
-          data={studentsArray}
+          data={studentsChart}
           margin={{
             top: 5,
             right: 30,
