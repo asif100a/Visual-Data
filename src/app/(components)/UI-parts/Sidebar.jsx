@@ -7,7 +7,7 @@ import useUser from '../Hooks/useUser';
 const Sidebar = ({ user, handleLogout }) => {
 
     return (
-        <aside className="flex flex-col w-64 h-screen px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l">
+        <div className="flex flex-col w-64 h-full px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l">
             <div className="px-3 py-1 border rounded-md overflow-clip">
                 <h4 className="pr-3">{user?.email}</h4>
             </div>
@@ -45,7 +45,7 @@ const Sidebar = ({ user, handleLogout }) => {
                     </div>
                 </nav>
             </div>
-        </aside>
+        </div>
     )
 }
 

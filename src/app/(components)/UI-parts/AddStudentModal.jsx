@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AddStudentModal = ({ handleCloseModal, register, handleSubmit, errors, handleAddStudent }) => {
+const AddStudentModal = ({ handleCloseAddModal, register, handleSubmit, errors, handleAddStudent }) => {
 
     return (
         <div className="bg-white shadow-md rounded-2xl w-full max-w-lg p-6">
@@ -50,7 +50,7 @@ const AddStudentModal = ({ handleCloseModal, register, handleSubmit, errors, han
 
                     <button
                         type='button'
-                        onClick={handleCloseModal}
+                        onClick={handleCloseAddModal}
                         className='border rounded-md px-3 py-1 text-lg font-bold bg-orange-600 text-white'
                     >
                         Cancel

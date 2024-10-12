@@ -2,9 +2,11 @@
 import useUser from '@/app/(components)/Hooks/useUser';
 import AddStudentModal from '@/app/(components)/UI-parts/AddStudentModal';
 import BarChartComponent from '@/app/(components)/UI-parts/BarChartComponent';
+import Buttons from '@/app/(components)/UI-parts/Buttons';
 import LineChartComponent from '@/app/(components)/UI-parts/LineChartComponent';
 import PieChartComponent from '@/app/(components)/UI-parts/PieChartComponent';
 import Sidebar from '@/app/(components)/UI-parts/Sidebar';
+import UpdateStudentModal from '@/app/(components)/UI-parts/UpdateStudentModal';
 import { supabase } from '@/app/(lib)/helper/superbase';
 import { getStudent, insertStudent } from '@/app/api/route';
 import axios from 'axios';
@@ -16,7 +18,8 @@ import toast, { Toaster } from 'react-hot-toast';
 const ChartsPage = () => {
     const user = useUser();
     const router = useRouter();
-    const studentRef = useRef();
+    const addStudentRef = useRef();
+    const updateStudentRef = useRef();
     const {
         register,
         handleSubmit,
@@ -35,6 +38,25 @@ const ChartsPage = () => {
         };
 
         getData();
+
+        // const subscription = supabase.channel("public:Students").on(
+        //     'postgres_changes',
+        //     {event: '*', schema: 'public', table: 'Students'},
+        //     (payload) => {
+        //         console.log('real-time payload', payload);
+        //         const newStudents = payload.new;
+
+        //         // Update the students state
+        //         if(payload.eventType === 'INSERT') {
+        //             setStudents((prevStudents) => [...prevStudents, newStudents])
+        //         }
+        //     }
+        // ).subscribe();
+
+        // // Clean up the subscription on unmount
+        // return() => {
+        //     supabase.removeChannel(subscription);
+        // };
     }, []);
 
     // Add student to the database
@@ -44,18 +66,37 @@ const ChartsPage = () => {
         console.log(response);
         if (response.status === 201) {
             toast.success("Student has added successfully");
-            studentRef.current.classList.add('hidden');
+            addStudentRef.current.classList.add('hidden');
+            window.location.reload();
         }
     };
 
-    // Open the add student modal
-    const handleViewModal = async () => {
+    // Update student to the database
+    const handleUpdateStudent = (e, id) => {
+        e.preventDefault();
+        console.log(id);
+    };
 
-        studentRef.current.classList.remove('hidden');
+    /** Add Student Modal Action */
+    // Open the add student modal
+    const handleAddViewModal = async () => {
+
+        addStudentRef.current.classList.remove('hidden');
     };
     // Close the details modal
-    const handleCloseModal = () => {
-        studentRef.current.classList.add('hidden');
+    const handleCloseAddModal = () => {
+        addStudentRef.current.classList.add('hidden');
+    }
+
+    /** Update Student Modal Action */
+    // Open the update student modal
+    const handleUpdateViewModal = async () => {
+
+        updateStudentRef.current.classList.remove('hidden');
+    };
+    // Close the details modal
+    const handleCloseUpdateModal = () => {
+        updateStudentRef.current.classList.add('hidden');
     }
 
     // Log out user
@@ -74,20 +115,29 @@ const ChartsPage = () => {
     }
 
     return (
-        <section className='flex gap-6'>
-            <Sidebar
-                user={user}
-                handleLogout={handleLogout}
-            />
+        <section className='flex gap-6 relative'>
+            <aside className='sticky z-10'>
+                <Sidebar
+                    user={user}
+                    handleLogout={handleLogout}
+                />
+            </aside>
 
             <div className='grid grid-cols-2 my-6 gap-6 relative'>
-                <div ref={studentRef} className="absolute z-10 w-full h-full flex justify-center items-center hidden">
+                <div ref={addStudentRef} className="absolute z-10 w-full h-full flex justify-center items-center hidden">
                     <AddStudentModal
-                        handleCloseModal={handleCloseModal}
+                        handleCloseAddModal={handleCloseAddModal}
                         register={register}
                         handleSubmit={handleSubmit}
                         errors={errors}
                         handleAddStudent={handleAddStudent}
+                    />
+                </div>
+                <div ref={updateStudentRef} className="absolute z-10 w-full h-full flex justify-center items-center hidden">
+                    <UpdateStudentModal 
+                        students={students}
+                        handleCloseUpdateModal={handleCloseUpdateModal}
+                        handleUpdateStudent={handleUpdateStudent}
                     />
                 </div>
 
@@ -114,10 +164,10 @@ const ChartsPage = () => {
                 </div>
                 {/* Button */}
                 <div className='flex justify-center items-center'>
-                    <button
-                        onClick={handleViewModal}
-                        className='border rounded-md px-3 py-1 text-lg font-bold'
-                    >Add Student</button>
+                    <Buttons
+                        handleAddViewModal={handleAddViewModal}
+                        handleUpdateViewModal={handleUpdateViewModal}
+                    />
                 </div>
             </div>
             <Toaster
