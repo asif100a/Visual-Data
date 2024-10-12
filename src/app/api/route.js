@@ -16,3 +16,10 @@ export const insertStudent = async({data}) => {
     ]);
     return response;
 };
+
+export const updateStudent = async({id, newData}) => {
+    console.log(id);
+    console.log(newData);
+    const response = await supabase.from('Students').update(newData).eq('id', id);
+    return response;
+};

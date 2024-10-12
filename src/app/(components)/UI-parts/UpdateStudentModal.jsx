@@ -1,19 +1,15 @@
 "use client"
 import React, { useRef, useState } from 'react';
 
-const UpdateStudentModal = ({ students, handleCloseUpdateModal, handleUpdateStudent }) => {
-    const tableRef = useRef();
-    const formRef = useRef();
-    const [selectedStudent, setSelectedStudent] = useState('');
-
-    const handleSelectStudent = (student) => {
-        console.log(student);
-        setSelectedStudent(student);
-
-        // After selected student, hide the table and show the form
-        tableRef.current.classList.add('hidden');
-        formRef.current.classList.remove('hidden');
-    };
+const UpdateStudentModal = ({ 
+    students, 
+    handleCloseUpdateModal, 
+    handleUpdateStudent, 
+    tableRef,
+    formRef,
+    handleSelectStudent,
+    selectedStudent
+}) => {    
 
     return (
         <div className="bg-white shadow-md rounded-2xl w-full max-w-lg p-6">
@@ -82,18 +78,6 @@ const UpdateStudentModal = ({ students, handleCloseUpdateModal, handleUpdateStud
                     onSubmit={handleUpdateStudent}
                     className="w-full mt-6 space-y-3 hidden"
                 >
-                    {/* Id */}
-                    <div>
-                        <label htmlFor="id">{"Student"} Id</label>
-                        <input
-                            type="text"
-                            name="id"
-                            value={selectedStudent?.id}
-                            readOnly={true}
-                            className="w-full border px-6 py-3 rounded-md focus:outline-none"
-                            required={true}
-                        />
-                    </div>
                     {/* First Name */}
                     <div>
                         <label htmlFor="name">{"Student's"} Name</label>

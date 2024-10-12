@@ -8,7 +8,7 @@ import PieChartComponent from '@/app/(components)/UI-parts/PieChartComponent';
 import Sidebar from '@/app/(components)/UI-parts/Sidebar';
 import UpdateStudentModal from '@/app/(components)/UI-parts/UpdateStudentModal';
 import { supabase } from '@/app/(lib)/helper/superbase';
-import { getStudent, insertStudent } from '@/app/api/route';
+import { getStudent, insertStudent, updateStudent } from '@/app/api/route';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
@@ -20,6 +20,10 @@ const ChartsPage = () => {
     const router = useRouter();
     const addStudentRef = useRef();
     const updateStudentRef = useRef();
+    const tableRef = useRef();
+    const formRef = useRef();
+    const [selectedStudent, setSelectedStudent] = useState('');
+
     const {
         register,
         handleSubmit,
@@ -71,10 +75,38 @@ const ChartsPage = () => {
         }
     };
 
+    
+    const handleSelectStudent = (student) => {
+        console.log(student);
+        setSelectedStudent(student);
+
+        // After selected student, hide the table and show the form
+        tableRef.current.classList.add('hidden');
+        formRef.current.classList.remove('hidden');
+    };
+
     // Update student to the database
-    const handleUpdateStudent = (e, id) => {
+    const handleUpdateStudent = async(e) => {
         e.preventDefault();
-        console.log(id);
+        // console.log(e);
+
+        const formData = new FormData(e.currentTarget);
+        const name = formData.get("name");
+        const roll = formData.get("roll");
+        const marks = formData.get("marks");
+        console.table({name, roll, marks});
+
+        const id = selectedStudent?.id;
+        const newData = {name, roll, marks};
+
+        // Update the data
+        const response = await updateStudent({id, newData});
+        console.log(response);
+        if(response?.status === 204) {
+            toast.success('The student updated successfully');
+            updateStudentRef.current.classList.add('hidden');
+            window.location.reload();
+        }
     };
 
     /** Add Student Modal Action */
@@ -138,6 +170,10 @@ const ChartsPage = () => {
                         students={students}
                         handleCloseUpdateModal={handleCloseUpdateModal}
                         handleUpdateStudent={handleUpdateStudent}
+                        tableRef={tableRef}
+                        formRef={formRef}
+                        handleSelectStudent={handleSelectStudent}
+                        selectedStudent={selectedStudent}
                     />
                 </div>
 
