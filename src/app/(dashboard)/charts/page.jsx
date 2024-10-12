@@ -3,13 +3,13 @@ import useUser from '@/app/(components)/Hooks/useUser';
 import AddStudentModal from '@/app/(components)/UI-parts/AddStudentModal';
 import BarChartComponent from '@/app/(components)/UI-parts/BarChartComponent';
 import Buttons from '@/app/(components)/UI-parts/Buttons';
+import DeleteStudentModal from '@/app/(components)/UI-parts/DeleteStudentModal';
 import LineChartComponent from '@/app/(components)/UI-parts/LineChartComponent';
 import PieChartComponent from '@/app/(components)/UI-parts/PieChartComponent';
 import Sidebar from '@/app/(components)/UI-parts/Sidebar';
 import UpdateStudentModal from '@/app/(components)/UI-parts/UpdateStudentModal';
 import { supabase } from '@/app/(lib)/helper/superbase';
 import { getStudent, insertStudent, updateStudent } from '@/app/api/route';
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -20,8 +20,12 @@ const ChartsPage = () => {
     const router = useRouter();
     const addStudentRef = useRef();
     const updateStudentRef = useRef();
-    const tableRef = useRef();
+    const deleteStudentRef = useRef();
+    const tableRefForUpdate = useRef();
+    const tableRefForDelete = useRef();
     const formRef = useRef();
+    // state
+    const [students, setStudents] = useState();
     const [selectedStudent, setSelectedStudent] = useState('');
 
     const {
@@ -29,9 +33,6 @@ const ChartsPage = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
-
-    // state
-    const [students, setStudents] = useState();
 
     // Fetched data
     useEffect(() => {
@@ -42,25 +43,6 @@ const ChartsPage = () => {
         };
 
         getData();
-
-        // const subscription = supabase.channel("public:Students").on(
-        //     'postgres_changes',
-        //     {event: '*', schema: 'public', table: 'Students'},
-        //     (payload) => {
-        //         console.log('real-time payload', payload);
-        //         const newStudents = payload.new;
-
-        //         // Update the students state
-        //         if(payload.eventType === 'INSERT') {
-        //             setStudents((prevStudents) => [...prevStudents, newStudents])
-        //         }
-        //     }
-        // ).subscribe();
-
-        // // Clean up the subscription on unmount
-        // return() => {
-        //     supabase.removeChannel(subscription);
-        // };
     }, []);
 
     // Add student to the database
@@ -75,18 +57,25 @@ const ChartsPage = () => {
         }
     };
 
-    
-    const handleSelectStudent = (student) => {
+
+    const handleSelectStudentForDelete = (student) => {
+        console.log(student);
+
+        deleteStudentRef.current.classList.add('hidden');
+    };
+
+    const handleSelectStudentForUpdate = (student) => {
         console.log(student);
         setSelectedStudent(student);
 
         // After selected student, hide the table and show the form
-        tableRef.current.classList.add('hidden');
+        tableRefForUpdate.current.classList.add('hidden');
+        console.log(tableRefForUpdate.current);
         formRef.current.classList.remove('hidden');
     };
 
     // Update student to the database
-    const handleUpdateStudent = async(e) => {
+    const handleUpdateStudent = async (e) => {
         e.preventDefault();
         // console.log(e);
 
@@ -94,22 +83,27 @@ const ChartsPage = () => {
         const name = formData.get("name");
         const roll = formData.get("roll");
         const marks = formData.get("marks");
-        console.table({name, roll, marks});
+        console.table({ name, roll, marks });
 
         const id = selectedStudent?.id;
-        const newData = {name, roll, marks};
+        const newData = { name, roll, marks };
 
         // Update the data
-        const response = await updateStudent({id, newData});
+        const response = await updateStudent({ id, newData });
         console.log(response);
-        if(response?.status === 204) {
+        if (response?.status === 204) {
             toast.success('The student updated successfully');
             updateStudentRef.current.classList.add('hidden');
             window.location.reload();
         }
     };
 
-    /** Add Student Modal Action */
+    // Delete student from the database
+    const handleDeleteStudent = () => {
+
+    };
+
+    /** *** Add Student Modal Action *** */
     // Open the add student modal
     const handleAddViewModal = async () => {
 
@@ -119,17 +113,31 @@ const ChartsPage = () => {
     const handleCloseAddModal = () => {
         addStudentRef.current.classList.add('hidden');
     }
+    /******************************************** */
 
-    /** Update Student Modal Action */
+    /** *** Update Student Modal Action *** */
     // Open the update student modal
     const handleUpdateViewModal = async () => {
 
         updateStudentRef.current.classList.remove('hidden');
     };
-    // Close the details modal
+    // Close the update modal
     const handleCloseUpdateModal = () => {
         updateStudentRef.current.classList.add('hidden');
     }
+    /******************************************** */
+
+    /** *** Update Student Modal Action *** */
+    // Show delete student modal
+    const handleShowDeleteModal = async () => {
+        deleteStudentRef.current.classList.remove('hidden');
+    };
+
+    // Close delete student modal
+    const handleCloseDeleteModal = () => {
+        deleteStudentRef.current.classList.add('hidden');
+    };
+    /******************************************** */
 
     // Log out user
     const handleLogout = async () => {
@@ -166,14 +174,22 @@ const ChartsPage = () => {
                     />
                 </div>
                 <div ref={updateStudentRef} className="absolute z-10 w-full h-full flex justify-center items-center hidden">
-                    <UpdateStudentModal 
+                    <UpdateStudentModal
                         students={students}
                         handleCloseUpdateModal={handleCloseUpdateModal}
                         handleUpdateStudent={handleUpdateStudent}
-                        tableRef={tableRef}
+                        tableRefForUpdate={tableRefForUpdate}
                         formRef={formRef}
-                        handleSelectStudent={handleSelectStudent}
+                        handleSelectStudentForUpdate={handleSelectStudentForUpdate}
                         selectedStudent={selectedStudent}
+                    />
+                </div>
+                <div ref={deleteStudentRef} className="absolute z-10 w-full h-full flex justify-center items-center hidden">
+                    <DeleteStudentModal
+                        tableRefForDelete={tableRefForDelete}
+                        students={students}
+                        handleSelectStudentForDelete={handleSelectStudentForDelete}
+                        handleCloseDeleteModal={handleCloseDeleteModal}
                     />
                 </div>
 
@@ -203,6 +219,7 @@ const ChartsPage = () => {
                     <Buttons
                         handleAddViewModal={handleAddViewModal}
                         handleUpdateViewModal={handleUpdateViewModal}
+                        handleShowDeleteModal={handleShowDeleteModal}
                     />
                 </div>
             </div>

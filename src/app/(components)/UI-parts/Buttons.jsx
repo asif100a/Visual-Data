@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Buttons = ({ handleAddViewModal, handleUpdateViewModal }) => {
+const Buttons = ({ handleAddViewModal, handleUpdateViewModal, handleShowDeleteModal }) => {
     return (
         <div className='w-fit h-fit flex flex-col justify-center items-center gap-6'>
             <div className='flex flex-row gap-6'>
@@ -17,7 +17,7 @@ const Buttons = ({ handleAddViewModal, handleUpdateViewModal }) => {
             </div>
             {/* delete student button */}
             <button
-                onClick={''}
+                onClick={handleShowDeleteModal}
                 className='border rounded-md px-3 py-1 text-lg font-bold'
             >Delete Student</button>
         </div>
