@@ -1,18 +1,19 @@
 import React from 'react';
 
 const StudentTable = ({
-    tableRefForUpdate, 
+    tableRefForUpdate,
     tableRefForDelete,
-    students, 
-    handleSelectStudentForUpdate, 
+    students,
+    handleSelectStudentForUpdate,
     handleSelectStudentForDelete,
-    handleCloseUpdateModal, 
+    handleCloseUpdateModal,
     handleCloseDeleteModal,
     from
 }) => {
     return (
         <div ref={tableRefForUpdate || tableRefForDelete} className="overflow-x-auto">
             <table className="w-full p-6 text-xs text-left whitespace-nowrap">
+                <caption className="mb-4 text-lg font-semibold leading-tight">Select which student you want to update</caption>
                 <colgroup>
                     <col className="w-5" />
                     <col />
@@ -36,10 +37,10 @@ const StudentTable = ({
                             <tr
                                 key={student?.id}
                                 onClick={() => {
-                                    if(from === 'update') {
+                                    if (from === 'update') {
                                         handleSelectStudentForUpdate(student);
                                     }
-                                    else{
+                                    else {
                                         handleSelectStudentForDelete(student?.id);
                                     }
                                 }}

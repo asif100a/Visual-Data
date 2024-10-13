@@ -58,14 +58,6 @@ const ChartsPage = () => {
         }
     };
 
-
-    const handleSelectStudentForDelete = (studentId) => {
-
-        // After selected student, hide the table and call the delete function
-        deleteStudentRef.current.classList.add('hidden');
-        handleDeleteStudent(studentId);
-    };
-
     const handleSelectStudentForUpdate = (student) => {
         console.log(student);
         setSelectedStudentForUpdate(student);
@@ -74,6 +66,13 @@ const ChartsPage = () => {
         tableRefForUpdate.current.classList.add('hidden');
         console.log(tableRefForUpdate.current);
         formRef.current.classList.remove('hidden');
+    };
+
+    const handleSelectStudentForDelete = (studentId) => {
+
+        // After selected student, hide the table and call the delete function
+        deleteStudentRef.current.classList.add('hidden');
+        handleDeleteStudent(studentId);
     };
 
     // Update student to the database

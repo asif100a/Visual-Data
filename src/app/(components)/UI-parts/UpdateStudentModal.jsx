@@ -2,30 +2,33 @@
 import React from 'react';
 import StudentTable from './StudentTable';
 
-const UpdateStudentModal = ({ 
-    students, 
-    handleCloseUpdateModal, 
-    handleUpdateStudent, 
+const UpdateStudentModal = ({
+    students,
+    handleCloseUpdateModal,
+    handleUpdateStudent,
     tableRefForUpdate,
     formRef,
     handleSelectStudentForUpdate,
-    selectedStudentForUpdate
-}) => {    
+    selectedStudentForUpdate,
+    widgetRef
+}) => {
+    // console.log(selectedStudentForUpdate);
 
     const from = 'update';
 
     return (
         <div className="bg-white shadow-md rounded-2xl w-full max-w-lg p-6">
             <div className="container p-2 mx-auto sm:p-4 dark:text-gray-800">
-                <h2 className="mb-4 text-lg font-semibold leading-tight">Select which student you want to update</h2>
                 {/* Student Table */}
-                <StudentTable 
-                    tableRefForUpdate={tableRefForUpdate}
-                    students={students}
-                    handleSelectStudentForUpdate={handleSelectStudentForUpdate}
-                    handleCloseUpdateModal={handleCloseUpdateModal}
-                    from={from}
-                />
+                <div ref={widgetRef} className=''>
+                    <StudentTable
+                        tableRefForUpdate={tableRefForUpdate}
+                        students={students}
+                        handleSelectStudentForUpdate={handleSelectStudentForUpdate}
+                        handleCloseUpdateModal={handleCloseUpdateModal}
+                        from={from}
+                    />
+                </div>
 
                 {/* Update Field */}
                 <form
