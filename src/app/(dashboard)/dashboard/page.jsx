@@ -1,10 +1,10 @@
 "use client"
 import useUser from '@/app/(components)/Hooks/useUser';
 import Sidebar from '@/app/(components)/UI-parts/Sidebar';
+import Widget from '@/app/(components)/UI-parts/Widget';
 import { supabase } from '@/app/(lib)/helper/superbase';
 import { useRouter } from 'next/navigation';
 import React from 'react'
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const Dashboard = () => {
@@ -20,8 +20,6 @@ const Dashboard = () => {
     }
   };
 
-  const percentage = 66;
-
   if (!user || user === 'Auth session missing!') {
     return router.push('/login');
   }
@@ -33,20 +31,9 @@ const Dashboard = () => {
         handleLogout={handleLogout}
       />
 
-      {/* Radial Progress */}
+      {/* Widgets */}
       <div className='my-6'>
-        <div className='p-6 bg-white rounded-2xl shadow-md w-56 h-auto'>
-          <CircularProgressbar
-            value={percentage}
-            text={`${percentage}%`}
-            styles={buildStyles({
-              // Colors
-              pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-              textColor: '#f88',
-              trailColor: '#d6d6d6',
-              backgroundColor: '#3e98c7',
-            })} />
-        </div>
+        <Widget />
       </div>
     </section>
   )
