@@ -181,15 +181,8 @@ const ChartsPage = () => {
 
     return (
         <section className='flex gap-6 relative'>
-            <aside className='sticky z-10'>
-                <Sidebar
-                    user={user}
-                    handleLogout={handleLogout}
-                />
-            </aside>
-
-            <div className='grid grid-cols-2 my-6 gap-6 relative'>
-                <div ref={addStudentRef} className="absolute z-10 w-full h-full flex justify-center items-center hidden">
+            <div ref={addStudentRef} className="absolute z-10 w-full h-full bg-gray-500 bg-opacity-25 hidden">
+                <div className='w-full h-screen flex justify-center items-center'>
                     <AddStudentModal
                         handleCloseAddModal={handleCloseAddModal}
                         register={register}
@@ -198,7 +191,9 @@ const ChartsPage = () => {
                         handleAddStudent={handleAddStudent}
                     />
                 </div>
-                <div ref={updateStudentRef} className="absolute z-10 w-full h-full flex justify-center items-center hidden">
+            </div>
+            <div ref={updateStudentRef} className="absolute z-10 w-full h-full bg-gray-500 bg-opacity-25 hidden">
+                <div className='w-full h-screen flex justify-center items-center'>
                     <UpdateStudentModal
                         students={students}
                         handleCloseUpdateModal={handleCloseUpdateModal}
@@ -209,7 +204,9 @@ const ChartsPage = () => {
                         selectedStudentForUpdate={selectedStudentForUpdate}
                     />
                 </div>
-                <div ref={deleteStudentRef} className="absolute z-10 w-full h-full flex justify-center items-center hidden">
+            </div>
+            <div ref={deleteStudentRef} className="absolute z-10 w-full h-full bg-gray-500 bg-opacity-25 hidden">
+                <div className='w-full h-screen flex justify-center items-center'>
                     <DeleteStudentModal
                         tableRefForDelete={tableRefForDelete}
                         students={students}
@@ -217,6 +214,18 @@ const ChartsPage = () => {
                         handleCloseDeleteModal={handleCloseDeleteModal}
                     />
                 </div>
+            </div>
+
+            {/* Sidebar */}
+            <aside className='sticky'>
+                <Sidebar
+                    user={user}
+                    handleLogout={handleLogout}
+                />
+            </aside>
+
+            <div className='grid grid-cols-2 my-6 gap-6 relative'>
+
 
                 {/* Bar Chart */}
                 <div className='border rounded-2xl p-6'>

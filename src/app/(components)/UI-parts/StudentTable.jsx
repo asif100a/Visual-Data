@@ -12,8 +12,9 @@ const StudentTable = ({
 }) => {
     return (
         <div ref={tableRefForUpdate || tableRefForDelete} className="overflow-x-auto">
+            <h2 className="mb-4 text-lg font-semibold leading-tight"></h2>
             <table className="w-full p-6 text-xs text-left whitespace-nowrap">
-                <caption className="mb-4 text-lg font-semibold leading-tight">Select which student you want to update</caption>
+                <caption className="mb-4 text-lg font-semibold leading-tight">{ from === 'delete' ? 'Select that student you want to delete' : 'Select which student you want to update'}</caption>
                 <colgroup>
                     <col className="w-5" />
                     <col />

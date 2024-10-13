@@ -42,7 +42,7 @@ const Dashboard = () => {
     register,
     handleSubmit,
     formState: { errors },
-} = useForm();
+  } = useForm();
 
   // Add student to the database
   const handleAddStudent = async (data) => {
@@ -109,17 +109,17 @@ const Dashboard = () => {
     });
   };
 
- /** *** Add Student Modal Action *** */
-    // Open the add student modal
-    const handleAddViewModal = async () => {
+  /** *** Add Student Modal Action *** */
+  // Open the add student modal
+  const handleAddViewModal = async () => {
 
-      addStudentRef.current.classList.remove('hidden');
+    addStudentRef.current.classList.remove('hidden');
   };
   // Close the details modal
   const handleCloseAddModal = () => {
-      addStudentRef.current.classList.add('hidden');
+    addStudentRef.current.classList.add('hidden');
   }
-  /******************************************** */ 
+  /******************************************** */
 
   /** *** Update Student Modal Action *** */
   // Open the update student modal
@@ -151,14 +151,9 @@ const Dashboard = () => {
   }
 
   return (
-    <section className='flex gap-6'>
-      <Sidebar
-        user={user}
-        handleLogout={handleLogout}
-      />
-
-      <div className='relative'>
-        <div ref={addStudentRef} className="absolute z-10 w-full h-full flex justify-center items-center hidden">
+    <section className='flex gap-6 relative'>
+      <div ref={addStudentRef} className="absolute z-10 w-full h-full bg-gray-500 bg-opacity-25 hidden">
+        <div className='w-full h-screen flex justify-center items-center'>
           <AddStudentModal
             handleCloseAddModal={handleCloseAddModal}
             register={register}
@@ -167,7 +162,9 @@ const Dashboard = () => {
             handleAddStudent={handleAddStudent}
           />
         </div>
-        <div ref={updateStudentRef} className="absolute z-10 w-full h-full flex justify-center items-center hidden">
+      </div>
+      <div ref={updateStudentRef} className="absolute z-10 w-full h-full bg-gray-500 bg-opacity-25 hidden">
+        <div className='w-full h-screen flex justify-center items-center'>
           <UpdateStudentModal
             students={students}
             handleCloseUpdateModal={handleCloseUpdateModal}
@@ -178,7 +175,17 @@ const Dashboard = () => {
             widgetRef={widgetRef}
           />
         </div>
+      </div>
 
+      {/* Sidebar */}
+      <aside className='sticky h-screen'>
+        <Sidebar
+          user={user}
+          handleLogout={handleLogout}
+        />
+      </aside>
+
+      <div className='relative'>
         <div className='my-6 flex flex-col'>
           {/* Total Widgets */}
           <TotalWidget
