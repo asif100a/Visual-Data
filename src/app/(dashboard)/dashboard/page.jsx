@@ -3,13 +3,14 @@ import useUser from '@/app/(components)/Hooks/useUser';
 import Sidebar from '@/app/(components)/UI-parts/Sidebar';
 import IndividualWidget from '@/app/(components)/UI-parts/IndividualWidget';
 import { supabase } from '@/app/(lib)/helper/superbase';
-import { getStudent, updateStudent } from '@/app/api/route';
+import { deleteStudent, getStudent, updateStudent } from '@/app/api/route';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
 import 'react-circular-progressbar/dist/styles.css';
 import TotalWidget from '@/app/(components)/UI-parts/TotalWidget';
 import UpdateStudentModal from '@/app/(components)/UI-parts/UpdateStudentModal';
 import toast, { Toaster } from 'react-hot-toast';
+import Swal from 'sweetalert2';
 
 const Dashboard = () => {
   const user = useUser();
@@ -22,9 +23,6 @@ const Dashboard = () => {
   // States
   const [students, setStudents] = useState([]);
   const [selectedStudentForUpdate, setSelectedStudentForUpdate] = useState('');
-
-  // Hide student table using boolean value
-
 
   // Fetched data
   useEffect(() => {
@@ -61,22 +59,39 @@ const Dashboard = () => {
     }
   };
 
-  // const handleSelectStudentForUpdate = (student) => {
-  //   console.log(student);
-  //   setSelectedStudentForUpdate(student);
+  // Delete student from the database
+  const handleDeleteStudent = (studentId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        // console.log(studentId);
 
-  //   // After selected student, hide the table and show the form
-  //   updateStudentRef.current.classList.remove('hidden');
-  //   // tableRefForUpdate.current.classList.add('hidden');
-  //   console.log(updateStudentRef.current);
-  //   // formRef.current.classList.remove('hidden');
-  // };
+        // Delete the student
+        const response = await deleteStudent({ studentId });
+        console.log(response);
+        if (response?.status === 204) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+          window.location.reload();
+        }
+      }
+    });
+  };
 
   /** *** Update Student Modal Action *** */
   // Open the update student modal
   const handleUpdateViewModal = async (student) => {
     setSelectedStudentForUpdate(student);
-    // console.log(selectedStudentForUpdate);
 
     updateStudentRef.current.classList.remove('hidden');
     widgetRef.current.classList.add('hidden');
@@ -117,7 +132,6 @@ const Dashboard = () => {
             handleUpdateStudent={handleUpdateStudent}
             tableRefForUpdate={tableRefForUpdate}
             formRef={formRef}
-            // handleSelectStudentForUpdate={handleSelectStudentForUpdate}
             selectedStudentForUpdate={selectedStudentForUpdate}
             widgetRef={widgetRef}
           />
@@ -137,6 +151,7 @@ const Dashboard = () => {
                   key={student?.id}
                   student={student}
                   handleUpdateViewModal={handleUpdateViewModal}
+                  handleDeleteStudent={handleDeleteStudent}
                 />
               ))
             }

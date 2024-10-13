@@ -2,7 +2,7 @@ import React from 'react';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import { FiUser } from 'react-icons/fi';
 
-const IndividualWidget = ({ student, handleUpdateViewModal }) => {
+const IndividualWidget = ({ student, handleUpdateViewModal, handleDeleteStudent }) => {
     const percentage = student?.marks;
     const name = student?.name;
     const roll = student?.roll;
@@ -13,7 +13,7 @@ const IndividualWidget = ({ student, handleUpdateViewModal }) => {
         <div className='relative h-fit group'>
             <div className="absolute w-full h-full flex flex-col justify-evenly items-center rounded-xl transition-opacity duration-700 opacity-0 backdrop-blur-sm bg-gray-500/60 group-hover:opacity-100">
                 <button onClick={() => handleUpdateViewModal(student)} className='px-3 py-1 border rounded-md font-bold bg-[#7bc095] text-white'>Update</button>
-                <button className='px-3 py-1 border rounded-md font-bold bg-[#f35353] text-white'>Delete</button>
+                <button onClick={() => handleDeleteStudent(student?.id)} className='px-3 py-1 border rounded-md font-bold bg-[#f35353] text-white'>Delete</button>
             </div>
             <div className='shadow-widget hover:cursor-pointer w-fit h-fit px-6 pb-6 pt-3 rounded-xl'>
                 <div className='mb-3'>
