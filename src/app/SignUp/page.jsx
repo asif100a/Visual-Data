@@ -33,8 +33,8 @@ const SignUpPage = () => {
 
     return (
         <section className="">
-            <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
-                <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md bg-white shadow-md p-6 rounded-xl">
+            <div className="container flex items-center justify-center min-h-screen px-3 md:px-6 mx-auto">
+                <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md bg-white shadow-md p-3 md:p-6 rounded-xl">
 
                     <div className="flex flex-col mt-6">
                         <h3 className="mt-3 text-xl font-medium text-center text-gray-600 ">Welcome Back</h3>

@@ -32,9 +32,9 @@ const LoginPage = () => {
     };
 
     return (
-        <section className="min-h-screen flex justify-center items-center">
-            <div className="w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md">
-                <div className="px-6 py-4">
+        <section className="min-h-screen flex justify-center items-center px-3">
+            <div className="w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md px-3 md:px-6 py-4">
+                <div className="">
 
                     <h3 className="mt-3 text-xl font-medium text-center text-gray-600 ">Welcome Back</h3>
 

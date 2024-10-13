@@ -7,7 +7,7 @@ import useUser from '../Hooks/useUser';
 const Sidebar = ({ user, handleLogout }) => {
 
     return (
-        <div className="flex flex-col w-64 h-full px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l">
+        <div className="sticky flex flex-col w-64 h-screen px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l">
             <div className="px-3 py-1 border rounded-md overflow-clip">
                 <h4 className="pr-3">{user?.email}</h4>
             </div>
@@ -33,7 +33,7 @@ const Sidebar = ({ user, handleLogout }) => {
                         </Link>
                     </div>
 
-                    <div className="space-y-3 ">
+                    <div className='pt-12'>
                         <hr />
 
                         <a onClick={handleLogout} className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700" href="">

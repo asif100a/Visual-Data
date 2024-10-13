@@ -13,6 +13,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import Swal from 'sweetalert2';
 import AddStudentModal from '@/app/(components)/UI-parts/AddStudentModal';
 import { useForm } from 'react-hook-form';
+import { FaBars } from "react-icons/fa6";
+import { RxCross2 } from "react-icons/rx";
 
 const Dashboard = () => {
   const user = useUser();
@@ -22,6 +24,7 @@ const Dashboard = () => {
   const tableRefForUpdate = useRef();
   const formRef = useRef();
   const widgetRef = useRef();
+  const sidebarRef = useRef();
 
   // States
   const [students, setStudents] = useState([]);
@@ -146,12 +149,28 @@ const Dashboard = () => {
     }
   };
 
+  // Handle Open sidebar for small device
+  const handleOpenSidebar = () => {
+    sidebarRef.current.classList.remove('sticky');
+    sidebarRef.current.classList.remove('hidden');
+    sidebarRef.current.classList.add('absolute');
+    sidebarRef.current.classList.add('z-10');
+  };
+
+  // Handle Close sidebar for small device
+  const handleCloseSidebar = () => {
+    sidebarRef.current.classList.add('sticky');
+    sidebarRef.current.classList.add('hidden');
+    sidebarRef.current.classList.remove('absolute');
+    sidebarRef.current.classList.remove('z-10');
+  };
+
   if (!user || user === 'Auth session missing!') {
     return router.push('/login');
   }
 
   return (
-    <section className='flex gap-6 relative'>
+    <section className='flex gap-6 relative w-screen lg:w-auto overflow-auto'>
       <div ref={addStudentRef} className="absolute z-10 w-full h-full bg-gray-500 bg-opacity-25 hidden">
         <div className='w-full h-screen flex justify-center items-center'>
           <AddStudentModal
@@ -178,14 +197,25 @@ const Dashboard = () => {
       </div>
 
       {/* Sidebar */}
-      <aside className='sticky h-screen'>
-        <Sidebar
-          user={user}
-          handleLogout={handleLogout}
-        />
+      <aside ref={sidebarRef} className='sticky top-0 w-screen lg:w-auto h-screen hidden lg:flex bg-gray-400 lg:bg-white bg-opacity-25 lg:bg-opacity-100'>
+        <div className='bg-white w-fit'>
+          <div className='block lg:hidden pt-3 pl-3'>
+            <RxCross2 onClick={handleCloseSidebar} className='text-2xl' />
+          </div>
+
+          <Sidebar
+            user={user}
+            handleLogout={handleLogout}
+          />
+        </div>
       </aside>
 
-      <div className='relative'>
+      <div className='flex-1 relative'>
+        {/* Menu bar for small devices */}
+        <div className='block lg:hidden'>
+          <FaBars onClick={handleOpenSidebar} className='text-lg mt-3 ml-3' />
+        </div>
+
         <div className='my-6 flex flex-col'>
           {/* Total Widgets */}
           <TotalWidget
@@ -194,7 +224,7 @@ const Dashboard = () => {
           />
 
           {/* Individual Widgets */}
-          <div className='mt-6 grid grid-cols-6 gap-6'>
+          <div className='mt-6 grid grid-cols-2 w-fit mx-auto md:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-6'>
             {
               students?.map(student => (
                 <IndividualWidget
@@ -216,4 +246,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default Dashboard;

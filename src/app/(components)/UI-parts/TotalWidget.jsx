@@ -18,13 +18,13 @@ const TotalWidget = ({ students, handleAddViewModal }) => {
     // console.log(totalPercentage);
 
     return (
-        <div className='border w-fit h-fit px-6 pb-6 pt-3 rounded-md'>
+        <div className='border w-screen lg:w-fit h-fit px-3 md:px-6 pb-6 pt-3 rounded-md'>
             <div className='mb-3'>
                 <h3 className='text-base font-semibold'>Total Student Progress</h3>
             </div>
 
             {/* Radial Progress */}
-            <div className='flex justify-between items-center w-full'>
+            <div className='flex flex-col lg:flex-row gap-3 md:gap-0 md:justify-between items-start md:items-center w-full'>
                 <div className='w-24 h-auto'>
                     <CircularProgressbar
                         value={totalPercentage}
@@ -37,7 +37,7 @@ const TotalWidget = ({ students, handleAddViewModal }) => {
                         })} />
                 </div>
 
-                <div className='w-1/2 flex justify-center items-center'>
+                <div className='w-full md:w-1/2 ml-9 md:ml-0 flex justify-normal md:justify-center items-center'>
                     <button
                         title='Add Student'
                         onClick={handleAddViewModal}
@@ -55,8 +55,8 @@ const TotalWidget = ({ students, handleAddViewModal }) => {
             </div>
 
             {/* Student Table */}
-            <div className='mt-3 h-[200px] overflow-y-auto'>
-                <table className="min-w-full divide-y divide-gray-200">
+            <div className='mt-3 h-[200px] w-full md:w-full overflow-y-auto overflow-x-auto'>
+                <table className="min-w-full divide-y divide-gray-200 text-sm">
                     <thead className="bg-gray-50">
                         <tr>
                             <th scope="col" className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500">

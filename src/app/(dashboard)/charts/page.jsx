@@ -14,6 +14,8 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
+import { FaBars } from 'react-icons/fa6';
+import { RxCross2 } from 'react-icons/rx';
 import Swal from 'sweetalert2';
 
 const ChartsPage = () => {
@@ -25,6 +27,8 @@ const ChartsPage = () => {
     const tableRefForUpdate = useRef();
     const tableRefForDelete = useRef();
     const formRef = useRef();
+    const sidebarRef = useRef();
+
     // state
     const [students, setStudents] = useState([]);
     const [selectedStudentForUpdate, setSelectedStudentForUpdate] = useState('');
@@ -174,13 +178,29 @@ const ChartsPage = () => {
         }
     };
 
+    // Handle Open sidebar for small device
+    const handleOpenSidebar = () => {
+        sidebarRef.current.classList.remove('sticky');
+        sidebarRef.current.classList.remove('hidden');
+        sidebarRef.current.classList.add('absolute');
+        sidebarRef.current.classList.add('z-10');
+    };
+
+    // Handle Close sidebar for small device
+    const handleCloseSidebar = () => {
+        sidebarRef.current.classList.add('sticky');
+        sidebarRef.current.classList.add('hidden');
+        sidebarRef.current.classList.remove('absolute');
+        sidebarRef.current.classList.remove('z-10');
+    };
+
     // If user is missing, redirect to Login page
     if (!user || user === 'Auth session missing!') {
         return router.push('/login');
     }
 
     return (
-        <section className='flex gap-6 relative'>
+        <section className='flex gap-6 relative overflow-hidden'>
             <div ref={addStudentRef} className="absolute z-10 w-full h-full bg-gray-500 bg-opacity-25 hidden">
                 <div className='w-full h-screen flex justify-center items-center'>
                     <AddStudentModal
@@ -217,34 +237,43 @@ const ChartsPage = () => {
             </div>
 
             {/* Sidebar */}
-            <aside className='sticky'>
-                <Sidebar
-                    user={user}
-                    handleLogout={handleLogout}
-                />
+            <aside ref={sidebarRef} className='sticky top-0 w-screen lg:w-auto h-screen hidden lg:flex bg-gray-400 lg:bg-white bg-opacity-25 lg:bg-opacity-100'>
+                <div className='bg-white w-fit'>
+                    <div className='block lg:hidden pt-3 pl-3'>
+                        <RxCross2 onClick={handleCloseSidebar} className='text-2xl' />
+                    </div>
+
+                    <Sidebar
+                        user={user}
+                        handleLogout={handleLogout}
+                    />
+                </div>
             </aside>
 
-            <div className='grid grid-cols-2 my-6 gap-6 relative'>
-
+            <div className='grid grid-cols-1 lg:grid-cols-2 my-6 gap-3 md:gap-6 relative'>
+                {/* Menu bar for small devices */}
+                <div className='block lg:hidden'>
+                    <FaBars onClick={handleOpenSidebar} className='text-lg -mt-2 ml-3' />
+                </div>
 
                 {/* Bar Chart */}
-                <div className='border rounded-2xl p-6'>
-                    <h1 className='text-xl font-semibold mb-3'>Bar Chart</h1>
-                    <div className='w-[500px] h-[350px]'>
+                <div className='border rounded-2xl p-3 md:p-6'>
+                    <h1 className='text-base lg:text-xl font-semibold mb-3'>Bar Chart</h1>
+                    <div className='w-[320px] lg:w-[500px] h-[220px] lg:h-[350px] mx-auto'>
                         <BarChartComponent students={students} />
                     </div>
                 </div>
                 {/* Line Chart */}
-                <div className='border rounded-2xl p-6'>
+                <div className='border rounded-2xl p-3 md:p-6'>
                     <h1 className='text-xl font-semibold mb-3'>Line Chart</h1>
-                    <div className='w-[500px] h-[350px]'>
+                    <div className='w-[350px] lg:w-[500px] h-[220px] lg:h-[350px] mx-auto'>
                         <LineChartComponent students={students} />
                     </div>
                 </div>
                 {/* Pie Chart */}
                 <div className='border rounded-2xl p-6'>
                     <h1 className='text-xl font-semibold mb-3'>Pie Chart</h1>
-                    <div className='w-[600px] h-[350px]'>
+                    <div className='w-full lg:w-[600px] h-[350px]'>
                         <PieChartComponent students={students} />
                     </div>
                 </div>

@@ -23,12 +23,7 @@ export default class LineChartComponent extends PureComponent {
           width={500}
           height={300}
           data={studentsChart}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
+          className='-ml-8 lg:ml-0'
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
