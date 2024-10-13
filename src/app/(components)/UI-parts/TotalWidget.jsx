@@ -2,13 +2,13 @@ import React from 'react';
 import { BsPlusCircleDotted } from "react-icons/bs";
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
-const TotalWidget = ({ students }) => {
+const TotalWidget = ({ students, handleAddViewModal }) => {
 
     const getTotalPercentage = () => {
         const totalMarks = students?.reduce((prevMark, currMark) => {
             return prevMark + currMark?.marks
         }, 0);
-       
+
         const maxMarks = students?.length * 100;
         const percentage = (totalMarks / maxMarks) * 100;
         return Math.ceil(percentage);
@@ -38,7 +38,11 @@ const TotalWidget = ({ students }) => {
                 </div>
 
                 <div className='w-1/2 flex justify-center items-center'>
-                    <button title='Add Student' className='text-[#7bc095] flex flex-col items-center'>
+                    <button
+                        title='Add Student'
+                        onClick={handleAddViewModal}
+                        className='text-[#7bc095] flex flex-col items-center'
+                    >
                         <span><BsPlusCircleDotted className='text-2xl' /></span>
                         <span className='text-xs'>Add</span>
                     </button>

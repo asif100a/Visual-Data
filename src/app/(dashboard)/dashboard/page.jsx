@@ -3,7 +3,7 @@ import useUser from '@/app/(components)/Hooks/useUser';
 import Sidebar from '@/app/(components)/UI-parts/Sidebar';
 import IndividualWidget from '@/app/(components)/UI-parts/IndividualWidget';
 import { supabase } from '@/app/(lib)/helper/superbase';
-import { deleteStudent, getStudent, updateStudent } from '@/app/api/route';
+import { deleteStudent, getStudent, insertStudent, updateStudent } from '@/app/api/route';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
 import 'react-circular-progressbar/dist/styles.css';
@@ -11,10 +11,13 @@ import TotalWidget from '@/app/(components)/UI-parts/TotalWidget';
 import UpdateStudentModal from '@/app/(components)/UI-parts/UpdateStudentModal';
 import toast, { Toaster } from 'react-hot-toast';
 import Swal from 'sweetalert2';
+import AddStudentModal from '@/app/(components)/UI-parts/AddStudentModal';
+import { useForm } from 'react-hook-form';
 
 const Dashboard = () => {
   const user = useUser();
   const router = useRouter();
+  const addStudentRef = useRef();
   const updateStudentRef = useRef();
   const tableRefForUpdate = useRef();
   const formRef = useRef();
@@ -34,6 +37,24 @@ const Dashboard = () => {
 
     getData();
   }, []);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+} = useForm();
+
+  // Add student to the database
+  const handleAddStudent = async (data) => {
+    console.log(data);
+    const response = await insertStudent({ data });
+    console.log(response);
+    if (response.status === 201) {
+      toast.success("Student has added successfully");
+      addStudentRef.current.classList.add('hidden');
+      window.location.reload();
+    }
+  };
 
   // Update student to the database
   const handleUpdateStudent = async (e) => {
@@ -88,6 +109,18 @@ const Dashboard = () => {
     });
   };
 
+ /** *** Add Student Modal Action *** */
+    // Open the add student modal
+    const handleAddViewModal = async () => {
+
+      addStudentRef.current.classList.remove('hidden');
+  };
+  // Close the details modal
+  const handleCloseAddModal = () => {
+      addStudentRef.current.classList.add('hidden');
+  }
+  /******************************************** */ 
+
   /** *** Update Student Modal Action *** */
   // Open the update student modal
   const handleUpdateViewModal = async (student) => {
@@ -125,6 +158,15 @@ const Dashboard = () => {
       />
 
       <div className='relative'>
+        <div ref={addStudentRef} className="absolute z-10 w-full h-full flex justify-center items-center hidden">
+          <AddStudentModal
+            handleCloseAddModal={handleCloseAddModal}
+            register={register}
+            handleSubmit={handleSubmit}
+            errors={errors}
+            handleAddStudent={handleAddStudent}
+          />
+        </div>
         <div ref={updateStudentRef} className="absolute z-10 w-full h-full flex justify-center items-center hidden">
           <UpdateStudentModal
             students={students}
@@ -141,6 +183,7 @@ const Dashboard = () => {
           {/* Total Widgets */}
           <TotalWidget
             students={students}
+            handleAddViewModal={handleAddViewModal}
           />
 
           {/* Individual Widgets */}
