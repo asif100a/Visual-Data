@@ -1,28 +1,47 @@
 import React from 'react';
+import { BsPlusCircleDotted } from "react-icons/bs";
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 
 const TotalWidget = ({ students }) => {
-    const percentage = 88;
+
+    const getTotalPercentage = () => {
+        const totalMarks = students?.reduce((prevMark, currMark) => {
+            return prevMark + currMark?.marks
+        }, 0);
+       
+        const maxMarks = students?.length * 100;
+        const percentage = (totalMarks / maxMarks) * 100;
+        return Math.ceil(percentage);
+    };
+
+    const totalPercentage = getTotalPercentage();
+    // console.log(totalPercentage);
 
     return (
-        <div className='border hover:cursor-pointer w-fit h-fit px-6 pb-6 pt-3 rounded-md'>
+        <div className='border w-fit h-fit px-6 pb-6 pt-3 rounded-md'>
             <div className='mb-3'>
                 <h3 className='text-base font-semibold'>Total Student Progress</h3>
             </div>
 
             {/* Radial Progress */}
-            <div className='flex justify-start items-center'>
+            <div className='flex justify-between items-center w-full'>
                 <div className='w-24 h-auto'>
                     <CircularProgressbar
-                        value={percentage}
-                        text={`${percentage}%`}
+                        value={totalPercentage}
+                        text={`${totalPercentage}%`}
                         styles={buildStyles({
-                            // Colors
-                            pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                            pathColor: `rgba(62, 152, 199, ${totalPercentage / 100})`,
                             textColor: '#f88',
                             trailColor: '#d6d6d6',
                             backgroundColor: '#3e98c7',
                         })} />
+                </div>
+
+                <div className='w-1/2 flex justify-center items-center'>
+                    <button title='Add Student' className='text-[#7bc095] flex flex-col items-center'>
+                        <span><BsPlusCircleDotted className='text-2xl' /></span>
+                        <span className='text-xs'>Add</span>
+                    </button>
                 </div>
             </div>
 
@@ -56,7 +75,7 @@ const TotalWidget = ({ students }) => {
                         {
                             students?.map((student, i) => (
                                 <tr key={student?.id}>
-                                    <td className='pl-3'>{i+1}</td>
+                                    <td className='pl-3'>{i + 1}</td>
                                     <td className="px-12 py-4 text-sm font-normal text-gray-700 whitespace-nowrap">
                                         <span>{student?.name}</span>
                                     </td>
