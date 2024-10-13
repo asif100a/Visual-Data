@@ -26,7 +26,7 @@ const ChartsPage = () => {
     const tableRefForDelete = useRef();
     const formRef = useRef();
     // state
-    const [students, setStudents] = useState();
+    const [students, setStudents] = useState([]);
     const [selectedStudentForUpdate, setSelectedStudentForUpdate] = useState('');
 
     const {
