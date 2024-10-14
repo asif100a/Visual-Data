@@ -250,40 +250,42 @@ const ChartsPage = () => {
                 </div>
             </aside>
 
-            <div className='grid grid-cols-1 lg:grid-cols-2 my-6 gap-3 md:gap-6 relative'>
+            <div>
                 {/* Menu bar for small devices */}
                 <div className='block lg:hidden'>
-                    <FaBars onClick={handleOpenSidebar} className='text-lg -mt-2 ml-3' />
+                    <FaBars onClick={handleOpenSidebar} className='text-lg mt-3 ml-3' />
                 </div>
 
-                {/* Bar Chart */}
-                <div className='border rounded-2xl p-3 md:p-6'>
-                    <h1 className='text-base lg:text-xl font-semibold mb-3'>Bar Chart</h1>
-                    <div className='w-[320px] lg:w-[500px] h-[220px] lg:h-[350px] mx-auto'>
-                        <BarChartComponent students={students} />
+                <div className='grid grid-cols-1 md:grid-cols-2 my-6 gap-3 md:gap-6 relative'>
+                    {/* Bar Chart */}
+                    <div className='border rounded-2xl p-3 md:p-6'>
+                        <h1 className='text-base lg:text-xl font-semibold mb-3'>Bar Chart</h1>
+                        <div className='w-[320px] lg:w-[500px] h-[220px] lg:h-[350px] mx-auto'>
+                            <BarChartComponent students={students} />
+                        </div>
                     </div>
-                </div>
-                {/* Line Chart */}
-                <div className='border rounded-2xl p-3 md:p-6'>
-                    <h1 className='text-xl font-semibold mb-3'>Line Chart</h1>
-                    <div className='w-[350px] lg:w-[500px] h-[220px] lg:h-[350px] mx-auto'>
-                        <LineChartComponent students={students} />
+                    {/* Line Chart */}
+                    <div className='border rounded-2xl p-3 md:p-6'>
+                        <h1 className='text-xl font-semibold mb-3'>Line Chart</h1>
+                        <div className='w-[350px] lg:w-[500px] h-[220px] lg:h-[350px] mx-auto'>
+                            <LineChartComponent students={students} />
+                        </div>
                     </div>
-                </div>
-                {/* Pie Chart */}
-                <div className='border rounded-2xl p-6'>
-                    <h1 className='text-xl font-semibold mb-3'>Pie Chart</h1>
-                    <div className='w-full lg:w-[600px] h-[350px]'>
-                        <PieChartComponent students={students} />
+                    {/* Pie Chart */}
+                    <div className='border rounded-2xl p-6'>
+                        <h1 className='text-xl font-semibold mb-3'>Pie Chart</h1>
+                        <div className='w-full lg:w-[600px] h-[350px]'>
+                            <PieChartComponent students={students} />
+                        </div>
                     </div>
-                </div>
-                {/* Button */}
-                <div className='flex justify-center items-center'>
-                    <Buttons
-                        handleAddViewModal={handleAddViewModal}
-                        handleUpdateViewModal={handleUpdateViewModal}
-                        handleShowDeleteModal={handleShowDeleteModal}
-                    />
+                    {/* Button */}
+                    <div className='flex justify-center items-center'>
+                        <Buttons
+                            handleAddViewModal={handleAddViewModal}
+                            handleUpdateViewModal={handleUpdateViewModal}
+                            handleShowDeleteModal={handleShowDeleteModal}
+                        />
+                    </div>
                 </div>
             </div>
             <Toaster

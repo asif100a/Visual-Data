@@ -91,7 +91,7 @@ const SignUpPage = () => {
                     {errors.password && <span className="text-red-500">This field is required</span>}
 
                     <div className="mt-6">
-                        <input type="submit" value="Sign Up" className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50" />
+                        <input type="submit" value="Sign Up" className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 hover:cursor-pointer" />
 
                         <div className="mt-6 text-center text-sm">
                             <span>Already have an account?</span>

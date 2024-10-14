@@ -170,7 +170,7 @@ const Dashboard = () => {
   }
 
   return (
-    <section className='flex gap-6 relative w-screen lg:w-auto overflow-auto'>
+    <section className='flex gap-6 relative w-full lg:w-auto overflow-x-hidden'>
       <div ref={addStudentRef} className="absolute z-10 w-full h-full bg-gray-500 bg-opacity-25 hidden">
         <div className='w-full h-screen flex justify-center items-center'>
           <AddStudentModal
@@ -212,11 +212,11 @@ const Dashboard = () => {
 
       <div className='flex-1 relative'>
         {/* Menu bar for small devices */}
-        <div className='block lg:hidden'>
+        <div className='block lg:hidden '>
           <FaBars onClick={handleOpenSidebar} className='text-lg mt-3 ml-3' />
         </div>
 
-        <div className='my-6 flex flex-col'>
+        <div className='py-6 flex flex-col'>
           {/* Total Widgets */}
           <TotalWidget
             students={students}
@@ -224,7 +224,7 @@ const Dashboard = () => {
           />
 
           {/* Individual Widgets */}
-          <div className='mt-6 grid grid-cols-2 w-fit mx-auto md:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-6'>
+          <div className='mt-6 grid grid-cols-2 w-fit mx-auto lg:mx-0 md:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-6'>
             {
               students?.map(student => (
                 <IndividualWidget

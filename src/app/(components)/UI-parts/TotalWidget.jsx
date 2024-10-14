@@ -18,13 +18,13 @@ const TotalWidget = ({ students, handleAddViewModal }) => {
     // console.log(totalPercentage);
 
     return (
-        <div className='border w-screen lg:w-fit h-fit px-3 md:px-6 pb-6 pt-3 rounded-md'>
+        <div className='border w-[calc(100vw-24px)] md:w-fit h-fit mx-auto lg:mx-0 px-3 md:px-6 pb-6 pt-3 rounded-md '>
             <div className='mb-3'>
                 <h3 className='text-base font-semibold'>Total Student Progress</h3>
             </div>
 
             {/* Radial Progress */}
-            <div className='flex flex-col lg:flex-row gap-3 md:gap-0 md:justify-between items-start md:items-center w-full'>
+            <div className='flex flex-col md:flex-row gap-3 md:gap-0 md:justify-between items-start md:items-center w-full'>
                 <div className='w-24 h-auto'>
                     <CircularProgressbar
                         value={totalPercentage}
