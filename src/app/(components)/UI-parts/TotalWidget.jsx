@@ -57,36 +57,36 @@ const TotalWidget = ({ students, handleAddViewModal }) => {
             {/* Student Table */}
             <div className='mt-3 h-[200px] w-full md:w-full overflow-y-auto overflow-x-auto'>
                 <table className="min-w-full divide-y divide-gray-200 text-sm">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-th">
                         <tr>
-                            <th scope="col" className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500">
+                            <th scope="col" className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right">
                                 <span>No.</span>
                             </th>
-                            <th scope="col" className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500">
+                            <th scope="col" className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right">
                                 <span>Student Name</span>
                             </th>
 
-                            <th scope="col" className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                            <th scope="col" className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right">
                                 Roll
                             </th>
 
-                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right">
                                 Marks
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
+                    <tbody className="bg-inherit divide-y divide-gray-200">
                         {
                             students?.map((student, i) => (
                                 <tr key={student?.id}>
                                     <td className='pl-3'>{i + 1}</td>
-                                    <td className="px-12 py-4 text-sm font-normal text-gray-700 whitespace-nowrap">
+                                    <td className="px-12 py-4 text-sm font-normal whitespace-nowrap">
                                         <span>{student?.name}</span>
                                     </td>
-                                    <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                    <td className="px-4 py-4 text-sm whitespace-nowrap">
                                         <span>{student?.roll}</span>
                                     </td>
-                                    <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                    <td className="px-4 py-4 text-sm whitespace-nowrap">
                                         <span>{student?.marks}</span>
                                     </td>
                                 </tr>

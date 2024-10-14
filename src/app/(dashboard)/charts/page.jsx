@@ -7,6 +7,7 @@ import DeleteStudentModal from '@/app/(components)/UI-parts/DeleteStudentModal';
 import LineChartComponent from '@/app/(components)/UI-parts/LineChartComponent';
 import PieChartComponent from '@/app/(components)/UI-parts/PieChartComponent';
 import Sidebar from '@/app/(components)/UI-parts/Sidebar';
+import ToggleTheme from '@/app/(components)/UI-parts/ToggleTheme';
 import UpdateStudentModal from '@/app/(components)/UI-parts/UpdateStudentModal';
 import { supabase } from '@/app/(lib)/helper/superbase';
 import { deleteStudent, getStudent, insertStudent, updateStudent } from '@/app/api/route';
@@ -252,8 +253,8 @@ const ChartsPage = () => {
             </div>
 
             {/* Sidebar */}
-            <aside ref={sidebarRef} className='sticky top-0 w-screen lg:w-auto h-screen hidden lg:flex bg-gray-400 lg:bg-white bg-opacity-25 lg:bg-opacity-100'>
-                <div className='bg-white w-fit'>
+            <aside ref={sidebarRef} className='sticky top-0 w-screen lg:w-auto h-screen hidden lg:flex bg-gray-400 lg:bg-inherit bg-opacity-25 lg:bg-opacity-100'>
+                <div className='bg-inherit w-fit'>
                     <div className='block lg:hidden pt-3 pl-3'>
                         <RxCross2 onClick={handleCloseSidebar} className='text-2xl' />
                     </div>
@@ -269,6 +270,17 @@ const ChartsPage = () => {
                 {/* Menu bar for small devices */}
                 <div className='block lg:hidden'>
                     <FaBars onClick={handleOpenSidebar} className='text-lg mt-3 ml-3' />
+                </div>
+
+                {/* Project Name & Toggle theme */}
+                <div className='flex justify-between mt-6 mr-6'>
+                    <div>
+                        <ToggleTheme />
+                    </div>
+
+                    <div>
+                        <h3 className='text-2xl font-semibold text-orange-600'>Visual Data</h3>
+                    </div>
                 </div>
 
                 <div className='grid grid-cols-1 md:grid-cols-2 my-6 gap-3 md:gap-6 relative'>
