@@ -39,36 +39,38 @@ const ChartsPage = () => {
         formState: { errors },
     } = useForm();
 
+    // Fetch function
+    const getData = async () => {
+        const data = await getStudent();
+        // console.log(data);
+        setStudents(data);
+    };
+
     // Fetched data
     useEffect(() => {
-        const getData = async () => {
-            const data = await getStudent();
-            console.log(data);
-            setStudents(data);
-        };
 
         getData();
     }, []);
 
     // Add student to the database
     const handleAddStudent = async (data) => {
-        console.log(data);
+        // console.log(data);
         const response = await insertStudent({ data });
-        console.log(response);
+        // console.log(response);
         if (response.status === 201) {
             toast.success("Student has added successfully");
             addStudentRef.current.classList.add('hidden');
-            window.location.reload();
+            getData();
         }
     };
 
     const handleSelectStudentForUpdate = (student) => {
-        console.log(student);
+        // console.log(student);
         setSelectedStudentForUpdate(student);
 
         // After selected student, hide the table and show the form
         tableRefForUpdate.current.classList.add('hidden');
-        console.log(tableRefForUpdate.current);
+        // console.log(tableRefForUpdate.current);
         formRef.current.classList.remove('hidden');
     };
 
@@ -88,18 +90,18 @@ const ChartsPage = () => {
         const name = formData.get("name");
         const roll = formData.get("roll");
         const marks = formData.get("marks");
-        console.table({ name, roll, marks });
+        // console.table({ name, roll, marks });
 
         const id = selectedStudentForUpdate?.id;
         const newData = { name, roll, marks };
 
         // Update the data
         const response = await updateStudent({ id, newData });
-        console.log(response);
+        // console.log(response);
         if (response?.status === 204) {
             toast.success('The student updated successfully');
             updateStudentRef.current.classList.add('hidden');
-            window.location.reload();
+            getData();
         }
     };
 
@@ -119,14 +121,14 @@ const ChartsPage = () => {
 
                 // Delete the student
                 const response = await deleteStudent({ studentId });
-                console.log(response);
+                // console.log(response);
                 if (response?.status === 204) {
                     Swal.fire({
                         title: "Deleted!",
                         text: "Your file has been deleted.",
                         icon: "success"
                     });
-                    window.location.reload();
+                    getData();
                 }
             }
         });
@@ -193,6 +195,19 @@ const ChartsPage = () => {
         sidebarRef.current.classList.remove('absolute');
         sidebarRef.current.classList.remove('z-10');
     };
+
+    // Set Loading if user length is 0
+    if (user.length === 0) {
+        return (
+            <section className="w-screen h-screen flex justify-center items-center">
+                <div className="flex items-center justify-center space-x-2">
+                    <div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-600"></div>
+                    <div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-600"></div>
+                    <div className="w-4 h-4 rounded-full animate-pulse dark:bg-violet-600"></div>
+                </div>
+            </section>
+        )
+    }
 
     // If user is missing, redirect to Login page
     if (!user || user === 'Auth session missing!') {
