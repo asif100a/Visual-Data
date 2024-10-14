@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Project Title
 
-## Getting Started
+# Visual Data
 
-First, run the development server:
+This is a student related web project. I have implemented full stack work for this project. In this project, the client side is built by Next.js and server side connected to Supabase. Also, I have implemented its authentication using Supabase. Any logged user can create student, update student, and delete student and it will be shown in the dashboard home page as a radial progress and in the Charts page as three types charts(Bar Chart, Line Chart, Pie Chart).
+
+Live Link: https://visual-data-amber.vercel.app/
+
+## To Run The Project Locally
+
+First, install the npm package:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+#or
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Second, create a environment variable file like .env.local and include these variables:
+```bash
+NEXT_PUBLIC_IMAGE_UPLOAD_API=e5a7f3eae707c4cb41c993609fff52c2
+NEXT_PUBLIC_SUPABASE_URL=https://tkdrsdjwrtiysnkwbkxi.supabase.co
+NEXT_PUBLIC_SUPABASE_API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRrZHJzZGp3cnRpeXNua3dia3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg1Mzk2MzgsImV4cCI6MjA0NDExNTYzOH0.UpcctXEISUEjB9b0xmfi6e7BiJ8wOE8oWkoUBf3OrmI
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Finally, run the project:
+```bash
+npm run dev
+#or
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Front-end:
+- Next.js
+- Recharts
+- React-icons
+- Other technologies
 
-## Learn More
+## Back-end:
+- Supabase
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Authentication:
+- Supabase
