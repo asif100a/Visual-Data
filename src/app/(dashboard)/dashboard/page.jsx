@@ -15,7 +15,7 @@ import AddStudentModal from '@/app/(components)/UI-parts/AddStudentModal';
 import { useForm } from 'react-hook-form';
 import { FaBars } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
-import ToggleTheme from '@/app/(components)/UI-parts/toggleTheme';
+import ToggleTheme from '@/app/(components)/UI-parts/ToggleTheme';
 
 const Dashboard = () => {
   const user = useUser();
@@ -216,7 +216,7 @@ const Dashboard = () => {
 
       {/* Sidebar */}
       <aside ref={sidebarRef} className='sticky top-0 w-screen lg:w-auto h-screen hidden lg:flex bg-gray-400 lg:bg-inherit bg-opacity-25 lg:bg-opacity-100'>
-        <div className='bg-inherit w-fit'>
+        <div className='bg-sidebar lg:bg-inherit w-fit'>
           <div className='block lg:hidden pt-3 pl-3'>
             <RxCross2 onClick={handleCloseSidebar} className='text-2xl' />
           </div>
@@ -229,19 +229,21 @@ const Dashboard = () => {
       </aside>
 
       <div className='flex-1 relative'>
-        {/* Menu bar for small devices */}
-        <div className='block lg:hidden '>
-          <FaBars onClick={handleOpenSidebar} className='text-lg mt-3 ml-3' />
-        </div>
-
-        {/* Project Name & Toggle theme */}
-        <div className='flex justify-between mt-6 mr-6'>
-          <div>
-            <ToggleTheme />
+        <div className='flex justify-between lg:block'>
+          {/* Menu bar for small devices */}
+          <div className='block lg:hidden '>
+            <FaBars onClick={handleOpenSidebar} className='text-lg mt-3 md:mt-6 ml-3 md:ml-6' />
           </div>
 
-          <div>
-            <h3 className='text-2xl font-semibold text-orange-600'>Visual Data</h3>
+          {/* Project Name & Toggle theme */}
+          <div className='flex justify-between mt-[6px] md:mt-5 lg:mt-6 mr-3 md:mr-6'>
+            <div className='hidden lg:block'>
+              <ToggleTheme />
+            </div>
+
+            <div>
+              <h3 className='text-2xl font-semibold text-orange-600'>Visual Data</h3>
+            </div>
           </div>
         </div>
 
@@ -253,7 +255,7 @@ const Dashboard = () => {
           />
 
           {/* Individual Widgets */}
-          <div className='mt-6 grid grid-cols-2 w-fit mx-auto lg:mx-0 md:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-6'>
+          <div className='mt-6 grid grid-cols-2 w-fit mx-auto md:mx-6 md:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-6'>
             {
               students?.map(student => (
                 <IndividualWidget

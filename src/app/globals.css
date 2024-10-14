@@ -6,12 +6,16 @@
   --background: #ffffff;
   --foreground: #171717;
   --bg-th: #f9fafb;
+  --bg-sidebar: white;
+  --icon-color: #171717;
 }
 
 [data-theme= 'dark'] {
     --background: #0a0a0a;
     --foreground: #ededed;
     --bg-th: #f9fafb33;
+    --bg-sidebar: #0a0a0a;
+    --icon-color: #ededed;
 }
 
 body {
@@ -26,6 +30,16 @@ body {
 
 .bg-th{
    background-color: var(--bg-th);   
+}
+
+.icon-color {
+  color: var(--icon-color);
+}
+
+@media (min-width: 300px) and (max-width: 1023px) {
+  .bg-sidebar {
+      background-color: var(--bg-sidebar);
+  }
 }
 
 @layer utilities {

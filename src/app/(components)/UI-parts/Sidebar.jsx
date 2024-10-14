@@ -2,18 +2,23 @@ import Link from 'next/link';
 import React from 'react'
 import { BiLogOut } from "react-icons/bi";
 import { MdOutlineHome } from "react-icons/md";
+import ToggleTheme from './ToggleTheme';
 
 const Sidebar = ({ user, handleLogout }) => {
 
     return (
-        <div className="sticky flex flex-col w-64 h-screen px-5 py-8 overflow-y-auto bg-inherit border-r rtl:border-r-0 rtl:border-l">
+        <div className="sticky flex flex-col w-64 h-screen px-4 md:px-5 py-8 overflow-y-auto bg-inherit border-r rtl:border-r-0 rtl:border-l">
             <div className="px-3 py-1 border rounded-md overflow-clip">
                 <h4 className="pr-3">{user?.email}</h4>
             </div>
 
+            <div className='block mt-4 lg:hidden'>
+              <ToggleTheme />
+            </div>
+
             <div className="flex flex-col justify-between flex-1 mt-6">
                 <nav className="-mx-3 space-y-6 ">
-                    <div className="space-y-3 ">
+                    <div className="space-y-2 md:space-y-3">
                         <label className="px-3 text-xs uppercase">Visual Data</label>
 
                         {/* Home */}

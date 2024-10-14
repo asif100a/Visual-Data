@@ -7,12 +7,12 @@ const Buttons = ({
     handleExportChart
 }) => {
     return (
-        <div className='w-fit h-fit flex flex-col justify-center items-center gap-6 mt-3 md:mt-0'>
+        <div className='w-fit h-fit flex flex-col justify-center items-center gap-3 md:gap-6 mt-3 md:mt-0'>
             <button
                 onClick={handleExportChart}
                 className='border rounded-md px-3 py-1 text-sm md:text-lg font-bold text-[#D946EF] bg-[#D946EF33]'
             >Export Students</button>
-            <div className='flex flex-row gap-6'>
+            <div className='flex flex-row gap-3 md:gap-6'>
                 {/* Add student button */}
                 <button
                     onClick={handleAddViewModal}

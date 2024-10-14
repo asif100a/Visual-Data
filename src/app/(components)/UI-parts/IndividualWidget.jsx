@@ -22,7 +22,7 @@ const IndividualWidget = ({ student, handleUpdateViewModal, handleDeleteStudent 
 
                 {/* Radial Progress */}
                 <div className='flex justify-center items-center'>
-                    <div className='w-16 md:w-24 h-auto'>
+                    <div className='w-16 md:w-28 lg:w-24 h-auto'>
                         <CircularProgressbar
                             value={percentage}
                             text={`${percentage}%`}

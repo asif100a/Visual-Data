@@ -18,7 +18,7 @@ const TotalWidget = ({ students, handleAddViewModal }) => {
     // console.log(totalPercentage);
 
     return (
-        <div className='border w-[calc(100vw-24px)] md:w-fit h-fit mx-auto lg:mx-0 px-3 md:px-6 pb-6 pt-3 rounded-md '>
+        <div className='border w-[calc(100vw-24px)] md:w-[calc(100vw-48px)] lg:w-fit h-fit mx-auto lg:mx-0 px-3 md:px-6 pb-6 pt-3 rounded-md '>
             <div className='mb-3'>
                 <h3 className='text-base font-semibold'>Total Student Progress</h3>
             </div>
