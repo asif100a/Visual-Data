@@ -9,6 +9,7 @@ import PieChartComponent from '@/app/(components)/UI-parts/PieChartComponent';
 import Sidebar from '@/app/(components)/UI-parts/Sidebar';
 import ToggleTheme from '@/app/(components)/UI-parts/ToggleTheme';
 import UpdateStudentModal from '@/app/(components)/UI-parts/UpdateStudentModal';
+import { exportToCSV } from '@/app/(lib)/helper/exportToCSV';
 import { supabase } from '@/app/(lib)/helper/superbase';
 import { deleteStudent, getStudent, insertStudent, updateStudent } from '@/app/api/route';
 import { useRouter } from 'next/navigation';
@@ -181,6 +182,11 @@ const ChartsPage = () => {
         }
     };
 
+    // Handle the export chart functionality
+    const handleExportChart = () => {
+        exportToCSV(students, 'chart-data.csv');
+    };
+
     // Handle Open sidebar for small device
     const handleOpenSidebar = () => {
         sidebarRef.current.classList.remove('sticky');
@@ -311,6 +317,7 @@ const ChartsPage = () => {
                             handleAddViewModal={handleAddViewModal}
                             handleUpdateViewModal={handleUpdateViewModal}
                             handleShowDeleteModal={handleShowDeleteModal}
+                            handleExportChart={handleExportChart}
                         />
                     </div>
                 </div>

@@ -30,7 +30,7 @@ const TotalWidget = ({ students, handleAddViewModal }) => {
                         value={totalPercentage}
                         text={`${totalPercentage}%`}
                         styles={buildStyles({
-                            pathColor: `rgba(62, 152, 199, ${totalPercentage / 100})`,
+                            pathColor: `rgba(217, 70, 239, ${totalPercentage / 100})`,
                             textColor: '#f88',
                             trailColor: '#d6d6d6',
                             backgroundColor: '#3e98c7',
