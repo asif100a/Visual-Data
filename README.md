@@ -1,6 +1,6 @@
 ## Project Title
 
-# Visual Data
+### Visual Data
 
 This is a student related web project. I have implemented full stack work for this project. In this project, the client side is built by Next.js and server side connected to Supabase. Also, I have implemented its authentication using Supabase. Any logged user can create student, update student, and delete student and it will be shown in the dashboard home page as a radial progress and in the Charts page as three types charts(Bar Chart, Line Chart, Pie Chart).
 
